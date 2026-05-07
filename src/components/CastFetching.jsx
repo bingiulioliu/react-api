@@ -60,21 +60,15 @@ function CastFetching() {
         </div>
         <div className="container d-flex justify-content-center align-items-center">
             <div className="row row-cols-3 g-4">
-                {filteredCast.map(fullCast =>
-                    <div key={fullCast.id} className="card col bg-secondary text-light">
-                        <img src={fullCast.image} className="card-img-top object-fit-cover" alt={fullCast.name} />
+                {filteredCast.map(actor =>
+                    <div key={actor.id} className="card col bg-secondary text-light">
+                        <img src={actor.image} className="card-img-top object-fit-cover" alt={actor.name} />
                         <div className="card-body">
-                            <h5 className="card-title">{fullCast.name}</h5>
-                            <p className="card-text">Anno di nascita: {fullCast.birth_year}</p>
-                            <p className="card-text">Nazionalità: {fullCast.nationality}</p>
-                            <p className="card-text">Film più famosi:</p>
-                            <ul>
-                                {fullCast.known ? (fullCast.known_for.split(',').map((movie, index)=>(
-                                <li key={index} className="small">Film più famosi: {movie.trim()}</li>
-                            ))
-                        ) : (<li className="small">Nessun film presente</li>)}
-                            </ul>
-                            <p className="card-text">Riconoscimenti: {fullCast.awards}</p>
+                            <h5 className="card-title">{actor.name}</h5>
+                            <p className="card-text">Anno di nascita: {actor.birth_year}</p>
+                            <p className="card-text">Nazionalità: {actor.nationality}</p>
+                            <p className="card-text">Film famosi: {String(actor.known_for)}</p>
+                            <p className="card-text">Riconoscimenti: {String(actor.awards)}</p>
                         </div>
                     </div>
                 )}
