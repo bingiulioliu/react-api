@@ -1,8 +1,8 @@
-import Act from "./components/Act.jsx";
+import CastFetching from "./components/CastFetching.jsx";
 
 function App() {
   return (
-    <Act />
+    <CastFetching />
   );
 }
 export default App;
