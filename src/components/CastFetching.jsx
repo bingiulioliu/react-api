@@ -62,9 +62,9 @@ function CastFetching() {
             <div className="row row-cols-3 g-4">
                 {filteredCast.map(actor =>
                     <div key={actor.id} className="card col bg-secondary text-light">
-                        <img src={actor.image} className="card-img-top object-fit-cover" alt={actor.name} />
+                        <h5 className="card-title my-3">{actor.name}</h5>
+                        <img src={actor.image} className={`card-img-top ${styles.actorPic}`} alt={actor.name} />
                         <div className="card-body">
-                            <h5 className="card-title">{actor.name}</h5>
                             <p className="card-text">Anno di nascita: {actor.birth_year}</p>
                             <p className="card-text">Nazionalità: {actor.nationality}</p>
                             <p className="card-text">Film famosi: {String(actor.known_for)}</p>
