@@ -1,3 +1,5 @@
+
+
 const getAct = (url, gender) => {
     return fetch(url)
         .then(response => response.json())
@@ -11,6 +13,7 @@ const getAct = (url, gender) => {
                 known_for: item.known_for,
                 awards: item.awards,
                 biography: item.biography,
+                id: crypto.randomUUID(),
                 image: item.image
             }));
         })

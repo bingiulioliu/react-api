@@ -17,29 +17,34 @@ function CastFetching() {
         .then(data => setActors(data));
         // Estrapolo le attrici
         getAct(API_URL_ACTRESSES, 'female')
-        .then(data => setActresses(data))
-    },[actors, actresses])
-
+        .then(data => setActresses(data));
+    },[]);
+    
+    
+    const fullCast = [...actors, ...actresses];
+    console.log(fullCast);
+    
 
     return <>
         <div className="container d-flex justify-content-center align-items-center">
             <h1 className={`${styles.title} text-primary`}>Cast Fetching</h1>
         </div>
         <div className="container d-flex justify-content-center align-items-center">
-            <div className="row">
-                <div className="card col">
-                    <img src="#" className="card-img-top" alt="Nome Attore" />
+            <div className="row row-cols-3 g-4">
+                {fullCast.map(fullCast =>
+                <div key={fullCast.id} className="card col bg-secondary text-light">
+                    <img src={fullCast.image} className="card-img-top object-fit-cover" alt={fullCast.name} />
                     <div className="card-body">
-                        <h5 className="card-title">Nome</h5>
-                        <p className="card-text">Anno di nascita: </p>
-                        <p className="card-text">Nazionalità: </p>
-                        <p className="card-text">Film più famosi: </p>
-                        <p className="card-text">Riconoscimenti: </p>
+                        <h5 className="card-title">{fullCast.name}</h5>
+                        <p className="card-text">Anno di nascita: {fullCast.birth_year}</p>
+                        <p className="card-text">Nazionalità: {fullCast.nationality}</p>
+                        <p className="card-text">Film più famosi: {fullCast.known_for}</p>
+                        <p className="card-text">Riconoscimenti: {fullCast.awards}</p>
                     </div>
                 </div>
+                )}
             </div>
         </div>
-        <div>{JSON.stringify(actors)}</div>
     </>;
 }
 export default CastFetching;
