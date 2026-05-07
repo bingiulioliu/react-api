@@ -1,10 +1,9 @@
 import styles from "./CastFetching.module.css";
 import { useState, useEffect } from 'react';
+import getAct from "./GenericFetch.js";
 
 const API_URL_ACTORS = 'https://lanciweb.github.io/demo/api/actors/';
 const API_URL_ACTRESSES = 'https://lanciweb.github.io/demo/api/actresses/';
-
-
 
 
 function CastFetching() {
@@ -12,68 +11,14 @@ function CastFetching() {
     const [actors, setActors] = useState([]);
     const [actresses, setActresses] = useState([]);
 
-    // Fetch attori
-    const actorsFetch = () => {
-        return fetch(API_URL_ACTORS)
-            .then(response => response.json())
-            .then((jsonActors) => {
-
-                return jsonActors.map(item => {
-
-                    return {
-                        genre: 'male',
-                        name: item.name,
-                        birth_year: item.birth_year,
-                        nationality: item.nationality,
-                        known_for: item.known_for,
-                        awards: item.awards,
-                        biography: item.biography,
-                        image: item.image
-                    };
-                });
-            })
-            .catch(err => console.error("Errore nella fetch:", err));
-    };
-
-    useEffect(() => {
-        actorsFetch().then(data => {
-            setActors(data);
-        });
-    }, []);
-
-    console.log(actors);
-
-
-    //Fetch attrici
-    const actressesFetch = () => {
-        return fetch(API_URL_ACTRESSES)
-            .then(response => response.json())
-            .then((jsonActresses) => {
-
-                return jsonActresses.map(item => {
-
-                    return {
-                        genre: 'female',
-                        name: item.name,
-                        birth_year: item.birth_year,
-                        nationality: item.nationality,
-                        known_for: item.known_for,
-                        awards: item.awards,
-                        biography: item.biography,
-                        image: item.image
-                    };
-                });
-            })
-            .catch(err => console.error("Errore nella fetch:", err));
-    };
-
-    useEffect(() => {
-        actressesFetch().then(data => {
-            setActresses(data);
-        });
-    }, []);
-
-    console.log(actresses);
+    useEffect(()=>{
+        // Estrapolo gli attori
+        getAct(API_URL_ACTORS, 'male')
+        .then(data => setActors(data));
+        // Estrapolo le attrici
+        getAct(API_URL_ACTRESSES, 'female')
+        .then(data => setActresses(data))
+    },[actors, actresses])
 
 
     return <>
