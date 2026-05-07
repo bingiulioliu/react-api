@@ -67,7 +67,13 @@ function CastFetching() {
                             <h5 className="card-title">{fullCast.name}</h5>
                             <p className="card-text">Anno di nascita: {fullCast.birth_year}</p>
                             <p className="card-text">Nazionalità: {fullCast.nationality}</p>
-                            <p className="card-text">Film più famosi: {fullCast.known_for}</p>
+                            <p className="card-text">Film più famosi:</p>
+                            <ul>
+                                {fullCast.known ? (fullCast.known_for.split(',').map((movie, index)=>(
+                                <li key={index} className="small">Film più famosi: {movie.trim()}</li>
+                            ))
+                        ) : (<li className="small">Nessun film presente</li>)}
+                            </ul>
                             <p className="card-text">Riconoscimenti: {fullCast.awards}</p>
                         </div>
                     </div>
