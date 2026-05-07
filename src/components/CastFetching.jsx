@@ -10,7 +10,8 @@ function CastFetching() {
 
     const [actors, setActors] = useState([]);
     const [actresses, setActresses] = useState([]);
-    const [filteredCast, setFilteredCast] = useState(fullCast);
+    const [filteredCast, setFilteredCast] = useState([]);
+    const [selectedGenre, setSelectedGenre] = useState('');
 
 
     useEffect(() => {
@@ -22,25 +23,27 @@ function CastFetching() {
             .then(data => setActresses(data));
     }, []);
 
-    // Merge degli attori
     const fullCast = [...actors, ...actresses];
     console.log(fullCast);
-
+    
     // Filtraggio
     useEffect(() => {
+        // Merge degli attori
         console.log('setup function');
         // Funzione che parte ad ogni modifica delle dipendenze
         const castFiltered = fullCast.filter(actor => {
             // Filtro per Genere (se vuoto mostra tutto, altrimenti confronta)
-            const matchesGenre = selectedGenre === "" || actor.genre === selectedGenre;
-
-            return matchesGenre;
+            return selectedGenre === "" || actor.genre === selectedGenre;
         });
         // Aggiorna la lista visualizzata
         setFilteredCast(castFiltered);
 
         // Dipendenze: l'effect parte ogni volta che una di queste cambia
-    }, [selectedGenre, fullCast]);
+    }, [selectedGenre, actors, actresses]);
+
+    const changeInputHandler = (event) => {
+        setSelectedGenre(event.target.value);
+    };
 
 
     return <>
@@ -49,19 +52,15 @@ function CastFetching() {
         </div>
         <div className="d-flex justify-content-center align-items-center">
             <h2>Filtra attori</h2>
-            <select
-            
-            >
-                <option value=''>Seleziona il genere</option>
-                {fullCast.map((genre) => (
-                    <option key={genre} value={genre}>{genre}
-                    </option>
-                ))}
+            <select value={selectedGenre} className="form-select" onChange={changeInputHandler}>
+                <option value="">Tutti i generi</option>
+                <option value="male">Attori</option>
+                <option value="female">Attrici</option>
             </select>
         </div>
         <div className="container d-flex justify-content-center align-items-center">
             <div className="row row-cols-3 g-4">
-                {fullCast.map(fullCast =>
+                {filteredCast.map(fullCast =>
                     <div key={fullCast.id} className="card col bg-secondary text-light">
                         <img src={fullCast.image} className="card-img-top object-fit-cover" alt={fullCast.name} />
                         <div className="card-body">
